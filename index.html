@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irene Zhou  UI/UX Designer</title>
+    <meta name="description" content="Portfolio of Irene Zhou, a Senior UI/UX Designer in Raleigh, NC specializing in user research, design systems, and end-to-end product design.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Irene Zhou — Senior UI/UX Designer">
+    <meta property="og:description" content="Portfolio of Irene Zhou, a Senior UI/UX Designer in Raleigh, NC specializing in user research, design systems, and end-to-end product design.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Irene Zhou — Senior UI/UX Designer">
+    <meta name="twitter:description" content="Portfolio of Irene Zhou, a Senior UI/UX Designer in Raleigh, NC specializing in user research, design systems, and end-to-end product design.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@500;600&display=swap" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="irene-zhou-portfolio.css">
+</head>
+<body>
+<div class="scroll-progress"></div>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- ── NAV ───────────────────────────────────────────── -->
+<nav id="nav">
+    <a href="#hero" class="nav-name">Irene Zhou</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li class="has-dropdown" id="workDropdown">
+            <button class="work-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="workMenu">
+                Work
+                <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <ul class="nav-dropdown" id="workMenu" role="menu">
+                <li role="none"><span class="drop-label">Professional Work</span></li>
+                <li role="none">
+                    <a href="osteoarthritis-care-plan/index.html" role="menuitem" tabindex="-1">
+                        <span class="drop-num">01</span>
+                        <span class="drop-title">Osteoarthritis Care Plan</span>
+                        <span class="drop-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg></span>
+                    </a>
+                </li>
+                <li role="none">
+                    <a href="cuttlefish-design-library/index.html" role="menuitem" tabindex="-1">
+                        <span class="drop-num">02</span>
+                        <span class="drop-title">Cuttlefish Design Library</span>
+                        <span class="drop-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg></span>
+                    </a>
+                </li>
+<li role="none">
+    <a href="medication-recommender-cost-analysis/index.html" role="menuitem" tabindex="-1">
+        <span class="drop-num">03</span>
+        <span class="drop-title">Medication Recommender Cost Analysis</span>
+        <span class="drop-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg></span>
+    </a>
+</li>
+<li class="nav-dropdown-divider" role="none"></li>
+                <li role="none"><span class="drop-label">Personal Projects</span></li>
+                <li role="none">
+                    <a href="wake-county-spca/index.html" role="menuitem" tabindex="-1">
+                        <span class="drop-num">01</span>
+                        <span class="drop-title">Wake County SPCA</span>
+                        <span class="drop-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg></span>
+                    </a>
+                </li>
+                <li role="none">
+                    <a href="discord/index.html" role="menuitem" tabindex="-1">
+                        <span class="drop-num">02</span>
+                        <span class="drop-title">Discord</span>
+                        <span class="drop-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg></span>
+                    </a>
+                </li>
+                <li class="nav-dropdown-divider" role="none"></li>
+                <li role="none"><span class="drop-label">Illustrations</span></li>
+                <li role="none">
+                    <a href="#" role="menuitem" tabindex="-1" style="opacity:.4;pointer-events:none;">
+                        <span class="drop-title">Coming soon</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="burger" id="burger">
+        <span></span><span></span><span></span>
+    </div>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────────── -->
+<section id="hero">
+    <p class="hero-eyebrow">Senior UI/UX Designer at Optum Technology <span class="eyebrow-sep">|</span> Raleigh, NC</p>
+    <p class="hero-preheader">Hello there, my name is</p>
+    <h1 class="hero-name">Irene</h1>
+    <p class="hero-tagline">Glad you stopped by.</p>
+    <div class="hero-disciplines">
+        <span class="disc-tag">UX/UI</span>
+        <span class="disc-tag">User Research</span>
+        <span class="disc-tag">Product Design</span>
+        <span class="disc-tag">Interaction Design</span>
+    </div>
+</section>
+
+<!-- ── MARQUEE ───────────────────────────────────────── -->
+<div class="marquee-section reveal-scale">
+    <div class="marquee-track">
+        <!-- half 1 -->
+        <div class="marquee-item"><img src="assets/marquee/wake1.jpg" alt="Wake County SPCA redesigned homepage" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/wake2.jpg" alt="Wake County SPCA adoption application form" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/med1.jpg" alt="Medication Recommender patient cost table" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/discord1.jpg" alt="Discord navigation mid-fidelity wireframe" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/wake1.jpg" alt="Wake County SPCA redesigned homepage" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/wake2.jpg" alt="Wake County SPCA adoption application form" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/med1.jpg" alt="Medication Recommender patient cost table" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/discord1.jpg" alt="Discord navigation mid-fidelity wireframe" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/wake1.jpg" alt="Wake County SPCA redesigned homepage" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/wake2.jpg" alt="Wake County SPCA adoption application form" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/med1.jpg" alt="Medication Recommender patient cost table" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/discord1.jpg" alt="Discord navigation mid-fidelity wireframe" loading="eager"></div>
+        <!-- half 2 (exact duplicate, required for seamless CSS loop) -->
+        <div class="marquee-item"><img src="assets/marquee/wake1.jpg" alt="Wake County SPCA redesigned homepage" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/wake2.jpg" alt="Wake County SPCA adoption application form" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/med1.jpg" alt="Medication Recommender patient cost table" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/discord1.jpg" alt="Discord navigation mid-fidelity wireframe" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/wake1.jpg" alt="Wake County SPCA redesigned homepage" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/wake2.jpg" alt="Wake County SPCA adoption application form" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/med1.jpg" alt="Medication Recommender patient cost table" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/discord1.jpg" alt="Discord navigation mid-fidelity wireframe" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/wake1.jpg" alt="Wake County SPCA redesigned homepage" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/wake2.jpg" alt="Wake County SPCA adoption application form" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/med1.jpg" alt="Medication Recommender patient cost table" loading="eager"></div>
+        <div class="marquee-item"><img src="assets/marquee/discord1.jpg" alt="Discord navigation mid-fidelity wireframe" loading="eager"></div>
+    </div>
+</div>
+
+<!-- ── ABOUT ──────────────────────────────────────────── -->
+<section id="about">
+    <div class="about-text reveal">
+        <h2 class="about-headline">Clever design<br>is my thing</h2>
+        <div class="about-body">
+            <p>Hi there! I'm Irene, a UI/UX Designer based in Raleigh, NC, with over 7 years of professional experience. I'm passionate about crafting intuitive, user-centered digital experiences that inspire genuine product love  designing interfaces that feel effortless and building meaningful, lasting connections between people and the products they use every day.</p>
+            <p>When I'm not designing, I'm illustrating, bouldering, watching thrillers, or giving dogs belly rubs.</p>
+        </div>
+    </div>
+    <div class="about-right reveal d1">
+        <div class="about-photo">
+            <img src="assets/profilepic.jpg" alt="Irene Zhou">
+        </div>
+        <p class="about-photo-caption">Found a wild lion's mane mushroom. Best UI I've seen all year, self-explanatory, zero onboarding required.</p>
+        <div class="about-meta-row">
+            <div class="about-skills-block">
+                <p class="about-skills-label">Skills &amp; Tools</p>
+                <div class="skills-list">
+                    <span class="skill-tag">Figma</span>
+                    <span class="skill-tag">Wireframing</span>
+                    <span class="skill-tag">Prototyping</span>
+                    <span class="skill-tag">Usability Testing and User Research</span>
+                    <span class="skill-tag">Design Systems</span>
+                    <span class="skill-tag">Info Architecture</span>
+                    <span class="skill-tag">Journey Mapping</span>
+                </div>
+            </div>
+            <div class="about-stats reveal-scale">
+                <div class="stat">
+                    <div class="stat-n" data-count="7+">7+</div>
+                    <div class="stat-l">Years Exp.</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-n">∞</div>
+                    <div class="stat-l">Curiosity</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── WORK / EXPERIENCE ──────────────────────────────── -->
+<section id="work">
+    <h4 class="section-eyebrow">Experience</h4>
+    <div class="exp-list">
+
+        <div class="exp-item reveal">
+            <div class="exp-dates">2022 - Present</div>
+            <div>
+                <h3 class="exp-role">Senior UX/UI Designer</h3>
+                <p class="exp-co">Optum</p>
+                <ul class="exp-bullets">
+                    <li>Lead UI design for clinician-facing products at an enterprise scale, including a medication recommender tool embedded in clinical workflows</li>
+                    <li>Collaborated with physicians, care managers, and clinical SMEs to translate complex treatment logic into interfaces that improve consistency of care under time pressure</li>
+                    <li>Created user research study guides to align the UX team and third-party researchers on what needed to be tested and who to recruit, then worked closely with the third-party researcher across dozens of hour-long user studies</li>
+                    <li>Co-created and maintained a clinical design system of 90+ components that remains used by hundreds of designers and developers across the organization</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="exp-item reveal d1">
+            <div class="exp-dates">2019  2022</div>
+            <div>
+                <h3 class="exp-role">UX/UI Designer</h3>
+                <p class="exp-co">Optum</p>
+                <ul class="exp-bullets">
+                    <li>Designed patient-facing experiences across multiple product teams</li>
+                    <li>Contributed to Optum's design system, ensuring consistency across a growing product portfolio</li>
+                    <li>Worked cross-functionally with PMs and clinical stakeholders to bring research-grounded UX to healthcare products serving large patient populations</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="exp-item reveal d2">
+            <div class="exp-dates">2024 - Present</div>
+            <div>
+                <h3 class="exp-role">Dog Butler (Volunteer)</h3>
+                <p class="exp-co">Saving Grace</p>
+                <ul class="exp-bullets">
+                    <li>Provided hands-on care, feeding, cleaning, and managed exercise rotations for dogs rescued by Saving Grace, a nonprofit that pulls dogs from under-resourced rural NC shelters</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ── CONTACT ────────────────────────────────────────── -->
+<section id="contact">
+    <h2 class="contact-cta reveal">Let's create<br>something great.</h2>
+    <div class="contact-links reveal">
+        <a href="mailto:irenezhou1997@gmail.com" class="contact-btn">
+            Email
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/irene-zhou-4294b5128/" target="_blank" rel="noopener" class="contact-btn">LinkedIn</a>
+    </div>
+
+    <div class="footer-bar">
+        <span class="footer-name">Irene Zhou</span>
+        <span class="footer-copy">© 2026 · All Rights Reserved</span>
+        <div class="socials">
+            <a href="mailto:irenezhou1997@gmail.com" class="soc">irenezhou1997@gmail.com</a>
+            <a href="https://www.linkedin.com/in/irene-zhou-4294b5128/" target="_blank" rel="noopener" class="soc">LinkedIn</a>
+        </div>
+    </div>
+</section>
+
+
+<script src="irene-zhou-portfolio.js">
+</script>
+</body>
+</html>
