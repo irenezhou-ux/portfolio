@@ -1,5 +1,5 @@
 history.scrollRestoration = 'manual';
-window.scrollTo(0, 0);
+document.getElementById('page-scroll').scrollTop = 0;
 (function () {
 
     /* ── Custom cursor ─────────────────────────────────── */
@@ -28,11 +28,20 @@ window.scrollTo(0, 0);
 
     /* ── Scroll progress bar ───────────────────────────── */
     const progressBar = document.querySelector('.scroll-progress');
+    const pageScroll   = document.getElementById('page-scroll');
     function updateProgress() {
-        const max = document.documentElement.scrollHeight - innerHeight;
-        progressBar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+        const max = pageScroll.scrollHeight - pageScroll.clientHeight;
+        progressBar.style.transform = `scaleX(${max > 0 ? pageScroll.scrollTop / max : 0})`;
     }
-    addEventListener('scroll', updateProgress, { passive: true });
+    pageScroll.addEventListener('scroll', updateProgress, { passive: true });
+
+    /* The nav bar sits outside #page-scroll (so its own scrollbar never
+       overlaps it), which means a wheel/trackpad scroll while the cursor
+       happens to be over the nav wouldn't otherwise reach the scrollable
+       content underneath. Forward it manually. */
+    document.getElementById('nav').addEventListener('wheel', e => {
+        pageScroll.scrollTop += e.deltaY;
+    }, { passive: true });
 
     /* ── Hero name slide-up ────────────────────────────── */
     const heroName = document.querySelector('.hero-name');
@@ -55,16 +64,37 @@ window.scrollTo(0, 0);
 
     /* ── Counter animation ─────────────────────────────── */
     function runCounter(el) {
+        if (el.dataset.animating === '1') return;
+        el.dataset.animating = '1';
+
         const raw = el.dataset.count || '';
+
+        if (raw === '∞') {
+            const t0 = performance.now(), dur = 1200;
+            (function step(now) {
+                const p = Math.min((now - t0) / dur, 1);
+                const ease = Math.pow(p, 3);
+                if (p < 1) {
+                    el.textContent = Math.round(ease * 9999);
+                    requestAnimationFrame(step);
+                } else {
+                    el.textContent = '∞';
+                    el.dataset.animating = '0';
+                }
+            })(performance.now());
+            return;
+        }
+
         const suffix = raw.replace(/[\d]/g, '');
         const target = parseInt(raw);
-        if (isNaN(target)) return;
+        if (isNaN(target)) { el.dataset.animating = '0'; return; }
         const t0 = performance.now(), dur = 1500;
         (function step(now) {
             const p = Math.min((now - t0) / dur, 1);
             const ease = 1 - Math.pow(1 - p, 3);
             el.textContent = Math.round(ease * target) + suffix;
             if (p < 1) requestAnimationFrame(step);
+            else el.dataset.animating = '0';
         })(performance.now());
     }
 
@@ -73,13 +103,28 @@ window.scrollTo(0, 0);
         entries.forEach(e => {
             if (!e.isIntersecting) return;
             e.target.classList.add('vis');
-            e.target.querySelectorAll('[data-count]').forEach(runCounter);
-            if (e.target.dataset.count) runCounter(e.target);
             io.unobserve(e.target);
         });
     }, { threshold: 0.08 });
 
     document.querySelectorAll('.reveal, .reveal-left, .reveal-scale').forEach(el => io.observe(el));
+
+    /* Counters trigger off a shrunk "viewport" (rootMargin) so they fire
+       once the stats box is meaningfully on screen, not the instant it
+       peeks past the very bottom edge — the box is short enough that a
+       plain percentage-based threshold still fires while it's still low
+       on the screen. It stays observed and replays every time the stats
+       re-cross that band, so a fast scroll that blows past it the first
+       time doesn't miss it for good. */
+    const counterIo = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            e.target.querySelectorAll('[data-count]').forEach(runCounter);
+            if (e.target.dataset.count) runCounter(e.target);
+        });
+    }, { threshold: 0, rootMargin: '-15% 0px -15% 0px' });
+
+    document.querySelectorAll('.about-stats').forEach(el => counterIo.observe(el));
 
     /* ── Marquee hover pause ───────────────────────────── */
     document.querySelectorAll('.marquee-section').forEach(sec => {
@@ -149,7 +194,7 @@ window.scrollTo(0, 0);
     if (navName) {
         navName.addEventListener('click', e => {
             e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            pageScroll.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 

@@ -142,6 +142,8 @@
     let panX    = 0;
     let panY    = 0;
     let dragging = false;
+    let dragMoved = false;
+    let justDragged = false;
     let dragStartX = 0;
     let dragStartY = 0;
 
@@ -179,12 +181,12 @@
         gallery = [...panel.querySelectorAll('.browser-frame img, .phone-frame img')];
         show(gallery.indexOf(frame.querySelector('img')));
         lightbox.classList.add('open');
-        document.body.style.overflow = 'hidden';
+        document.getElementById('page-scroll').style.overflow = 'hidden';
     }
 
     function close() {
         lightbox.classList.remove('open');
-        document.body.style.overflow = '';
+        document.getElementById('page-scroll').style.overflow = '';
     }
 
     frames.forEach(frame => {
@@ -200,8 +202,10 @@
     zoomInBtn.addEventListener('click',  e => { e.stopPropagation(); setZoom(zoom + 0.5); });
     zoomOutBtn.addEventListener('click', e => { e.stopPropagation(); setZoom(zoom - 0.5); });
 
-    imgEl.addEventListener('dblclick', e => {
+    /* Click the image to zoom in; click again (without dragging) to zoom back out. */
+    imgEl.addEventListener('click', e => {
         e.stopPropagation();
+        if (justDragged) { justDragged = false; return; }
         setZoom(zoom > 1 ? 1 : 2);
     });
 
@@ -214,19 +218,22 @@
         if (zoom === 1) return;
         e.preventDefault();
         dragging   = true;
+        dragMoved  = false;
         dragStartX = e.clientX - panX;
         dragStartY = e.clientY - panY;
         imgEl.style.transition = 'none';
     });
     window.addEventListener('mousemove', e => {
         if (!dragging) return;
-        panX = e.clientX - dragStartX;
-        panY = e.clientY - dragStartY;
+        const nx = e.clientX - dragStartX, ny = e.clientY - dragStartY;
+        if (Math.abs(nx - panX) > 3 || Math.abs(ny - panY) > 3) dragMoved = true;
+        panX = nx; panY = ny;
         applyTransform();
     });
     window.addEventListener('mouseup', () => {
         if (!dragging) return;
         dragging = false;
+        justDragged = dragMoved;
         imgEl.style.transition = '';
     });
 

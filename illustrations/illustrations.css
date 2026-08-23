@@ -1,0 +1,49 @@
+/* ── ILLUSTRATIONS PAGE ───────────────────────────────── */
+
+.illo-intro {
+    max-width: 640px;
+}
+
+.illo-masonry {
+    column-count: 3;
+    column-gap: 28px;
+}
+
+.illo-frame {
+    break-inside: avoid;
+    margin: 0 0 28px;
+}
+
+.illo-item {
+    border: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    background: rgba(99,103,255,.04);
+}
+
+.illo-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform .5s cubic-bezier(.16,1,.3,1);
+}
+
+.illo-item:hover img {
+    transform: scale(1.03);
+}
+
+.illo-caption {
+    font-family: var(--ff-mono);
+    font-style: italic;
+    font-size: 12.5px;
+    opacity: .55;
+    padding: 10px 2px 0;
+}
+
+@media (max-width: 1000px) {
+    .illo-masonry { column-count: 2; }
+}
+
+@media (max-width: 640px) {
+    .illo-masonry { column-count: 1; }
+}

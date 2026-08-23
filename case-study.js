@@ -1,5 +1,5 @@
 history.scrollRestoration = 'manual';
-window.scrollTo(0, 0);
+document.getElementById('page-scroll').scrollTop = 0;
 
 (function () {
     var PASS = 'ireneportfolio', KEY = 'portfolio_auth';
@@ -50,11 +50,20 @@ window.scrollTo(0, 0);
 
     /* ── Scroll progress bar ───────────────────────────── */
     const progressBar = document.querySelector('.scroll-progress');
+    const pageScroll   = document.getElementById('page-scroll');
     function updateProgress() {
-        const max = document.documentElement.scrollHeight - innerHeight;
-        progressBar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+        const max = pageScroll.scrollHeight - pageScroll.clientHeight;
+        progressBar.style.transform = `scaleX(${max > 0 ? pageScroll.scrollTop / max : 0})`;
     }
-    addEventListener('scroll', updateProgress, { passive: true });
+    pageScroll.addEventListener('scroll', updateProgress, { passive: true });
+
+    /* The nav bar sits outside #page-scroll (so its own scrollbar never
+       overlaps it), which means a wheel/trackpad scroll while the cursor
+       happens to be over the nav wouldn't otherwise reach the scrollable
+       content underneath. Forward it manually. */
+    document.getElementById('nav').addEventListener('wheel', e => {
+        pageScroll.scrollTop += e.deltaY;
+    }, { passive: true });
 
     /* ── Hero title word-split ─────────────────────────── */
     const title = document.querySelector('.project-title');
@@ -136,10 +145,19 @@ window.scrollTo(0, 0);
     const burger   = document.getElementById('burger');
     const navLinks = document.getElementById('navLinks');
     if (burger) {
+        const bars = burger.querySelectorAll('span');
         burger.addEventListener('click', () => {
-            const open = navLinks.classList.toggle('mobile-open');
+            const open = navLinks.classList.toggle('open');
             burger.classList.toggle('active', open);
+            bars[0].style.transform = open ? 'translateY(6.5px) rotate(45deg)' : '';
+            bars[1].style.opacity   = open ? '0' : '';
+            bars[2].style.transform = open ? 'translateY(-6.5px) rotate(-45deg)' : '';
         });
+        navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            burger.classList.remove('active');
+            bars.forEach(b => { b.style.transform = ''; b.style.opacity = ''; });
+        }));
     }
 
 })();
@@ -202,14 +220,22 @@ window.scrollTo(0, 0);
 
 (function () {
     /* ── Image zoom modal ──────────────────────────────── */
-    const targets = [...document.querySelectorAll('.wireframe-img-wrap img, .artifact-shot img')];
+    /* Every content image gets the zoom viewer, except ones already
+       handled by Wake County SPCA's own frame/slideshow lightbox. */
+    const targets = [...document.querySelectorAll('img')].filter(img =>
+        !img.closest('.img-zoom-frame') &&
+        !img.closest('.browser-frame') &&
+        !img.closest('.phone-frame')
+    );
     if (!targets.length) return;
+
+    const CAPTION_CLASSES = ['shot-caption', 'artifact-shot-label', 'demo-caption', 'component-label', 'illo-caption'];
 
     function findCaption(wrap) {
         let title = '';
         let desc = '';
-        const next = wrap.nextElementSibling;
-        if (next && (next.classList.contains('shot-caption') || next.classList.contains('artifact-shot-label'))) {
+        const next = wrap ? wrap.nextElementSibling : null;
+        if (next && CAPTION_CLASSES.some(c => next.classList.contains(c))) {
             const clone = next.cloneNode(true);
             const strong = clone.querySelector('strong');
             if (strong) {
@@ -253,7 +279,7 @@ window.scrollTo(0, 0);
     const zoomInBtn = modal.querySelector('.img-zoom-in');
     const zoomOutBtn= modal.querySelector('.img-zoom-out');
 
-    let zoom = 1, panX = 0, panY = 0, dragging = false, dragStartX = 0, dragStartY = 0;
+    let zoom = 1, panX = 0, panY = 0, dragging = false, dragMoved = false, justDragged = false, dragStartX = 0, dragStartY = 0;
     const MIN_ZOOM = 1, MAX_ZOOM = 4;
 
     function applyTransform() {
@@ -272,7 +298,7 @@ window.scrollTo(0, 0);
     }
 
     function open(target) {
-        const { title, desc } = findCaption(target.closest('.wireframe-img-wrap, .artifact-shot'));
+        const { title, desc } = findCaption(target.parentElement);
         imgEl.src = target.src;
         imgEl.alt = target.alt || '';
         titleEl.textContent = title;
@@ -281,11 +307,11 @@ window.scrollTo(0, 0);
         descEl.style.display = desc ? '' : 'none';
         resetZoom();
         modal.classList.add('open');
-        document.body.style.overflow = 'hidden';
+        document.getElementById('page-scroll').style.overflow = 'hidden';
     }
     function close() {
         modal.classList.remove('open');
-        document.body.style.overflow = '';
+        document.getElementById('page-scroll').style.overflow = '';
     }
 
     targets.forEach(img => img.addEventListener('click', () => open(img)));
@@ -293,10 +319,15 @@ window.scrollTo(0, 0);
     closeBtn.addEventListener('click', close);
     modal.addEventListener('click', e => { if (e.target === modal) close(); });
 
-    zoomInBtn.addEventListener('click',  () => setZoom(zoom + 0.5));
-    zoomOutBtn.addEventListener('click', () => setZoom(zoom - 0.5));
+    zoomInBtn.addEventListener('click',  e => { e.stopPropagation(); setZoom(zoom + 0.5); });
+    zoomOutBtn.addEventListener('click', e => { e.stopPropagation(); setZoom(zoom - 0.5); });
 
-    imgEl.addEventListener('dblclick', () => setZoom(zoom > 1 ? 1 : 2));
+    /* Click the image to zoom in; click again (without dragging) to zoom back out. */
+    imgEl.addEventListener('click', e => {
+        e.stopPropagation();
+        if (justDragged) { justDragged = false; return; }
+        setZoom(zoom > 1 ? 1 : 2);
+    });
 
     frameEl.addEventListener('wheel', e => {
         e.preventDefault();
@@ -307,19 +338,22 @@ window.scrollTo(0, 0);
         if (zoom === 1) return;
         e.preventDefault();
         dragging = true;
+        dragMoved = false;
         dragStartX = e.clientX - panX;
         dragStartY = e.clientY - panY;
         imgEl.style.transition = 'none';
     });
     window.addEventListener('mousemove', e => {
         if (!dragging) return;
-        panX = e.clientX - dragStartX;
-        panY = e.clientY - dragStartY;
+        const nx = e.clientX - dragStartX, ny = e.clientY - dragStartY;
+        if (Math.abs(nx - panX) > 3 || Math.abs(ny - panY) > 3) dragMoved = true;
+        panX = nx; panY = ny;
         applyTransform();
     });
     window.addEventListener('mouseup', () => {
         if (!dragging) return;
         dragging = false;
+        justDragged = dragMoved;
         imgEl.style.transition = '';
     });
 

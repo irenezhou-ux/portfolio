@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Illustrations / Irene Zhou</title>
+    <meta name="description" content="A collection of personal illustration work by Irene Zhou, Senior UX/UI Designer.">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Illustrations / Irene Zhou">
+    <meta property="og:description" content="A collection of personal illustration work by Irene Zhou, Senior UX/UI Designer.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Illustrations / Irene Zhou">
+    <meta name="twitter:description" content="A collection of personal illustration work by Irene Zhou, Senior UX/UI Designer.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../shared.css">
+    <link rel="stylesheet" href="illustrations.css">
+</head>
+<body>
+
+<!-- -- PASSWORD GATE ------------------------------------ -->
+<div id="pw-gate">
+    <div id="pw-box">
+        <svg class="pw-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <p id="pw-name">Irene Zhou &middot; Portfolio</p>
+        <p id="pw-label">This page is password protected.</p>
+        <form id="pw-form" autocomplete="off">
+            <input id="pw-input" type="password" placeholder="Enter password" autocomplete="current-password" autofocus>
+            <button type="submit">&#x2192;</button>
+        </form>
+        <p id="pw-error"></p>
+    </div>
+</div>
+
+<div class="scroll-progress"></div>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- -- NAV -------------------------------------------- -->
+<nav id="nav">
+    <a href="../index.html" class="nav-name">Irene Zhou</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html#about">About</a></li>
+        <li class="has-dropdown" id="workDropdown">
+            <button class="work-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="workMenu">
+                Work
+                <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <ul class="nav-dropdown" id="workMenu" role="menu">
+                <li role="none"><span class="drop-label">Professional Work</span></li>
+                <li role="none"><a href="../osteoarthritis-care-plan/index.html" role="menuitem" tabindex="-1"><span class="drop-num">01</span><span class="drop-title">Osteoarthritis Care Plan</span></a></li>
+                <li role="none"><a href="../cuttlefish-design-library/index.html" role="menuitem" tabindex="-1"><span class="drop-num">02</span><span class="drop-title">Cuttlefish Design Library</span></a></li>
+                <li role="none"><a href="../medication-recommender-cost-analysis/index.html" role="menuitem" tabindex="-1"><span class="drop-num">03</span><span class="drop-title">Medication Recommender Cost Analysis</span></a></li>
+                <li class="nav-dropdown-divider" role="none"></li>
+                <li role="none"><span class="drop-label">Personal Projects</span></li>
+                <li role="none"><a href="../wake-county-spca/index.html" role="menuitem" tabindex="-1"><span class="drop-num">01</span><span class="drop-title">Wake County SPCA</span></a></li>
+                <li class="nav-dropdown-divider" role="none"></li>
+                <li role="none"><span class="drop-label">Illustrations</span></li>
+                <li role="none"><a href="../illustrations/index.html" role="menuitem" tabindex="-1"><span class="drop-num">01</span><span class="drop-title">Gallery</span></a></li>
+            </ul>
+        </li>
+        <li><a href="../contact/index.html">Contact</a></li>
+    </ul>
+    <div class="burger" id="burger"><span></span><span></span><span></span></div>
+</nav>
+<div id="page-scroll">
+
+
+<!-- -- HERO ------------------------------------------- -->
+<section id="hero">
+    <a href="../index.html" class="back-home reveal-left">&larr; Back to home</a>
+    <div class="project-eyebrow reveal-left d1">Personal Work</div>
+    <h1 class="project-title">Illustrations</h1>
+    <p class="project-subtitle illo-intro">A collection of personal illustration work made outside of product design: character studies, editorial pieces, and visual experiments.</p>
+</section>
+
+<!-- -- GALLERY ---------------------------------------- -->
+<div class="section-wrap" style="border-bottom:none;">
+    <p class="section-eyebrow reveal-left">Selected Work</p>
+    <div class="illo-masonry">
+
+        <figure class="illo-frame reveal">
+            <div class="illo-item"><img src="../assets/illustrations/illo-01.jpg" alt="Illustration of a girl browsing a night street food market, framed like a retro computer window"></div>
+            <p class="illo-caption">The World According to Street Food</p>
+        </figure>
+
+        <figure class="illo-frame reveal">
+            <div class="illo-item"><img src="../assets/illustrations/illo-06.jpg" alt="Two-tone illustration of two people close together, one whispering to the other"></div>
+            <p class="illo-caption">Between Us</p>
+        </figure>
+
+        <figure class="illo-frame reveal">
+            <div class="illo-item"><img src="../assets/illustrations/illo-02.jpg" alt="Blue line-art illustration of a cat, a tree, a city skyline, and a jar pouring liquid"></div>
+            <p class="illo-caption">Little Universes</p>
+        </figure>
+
+        <figure class="illo-frame reveal">
+            <div class="illo-item"><img src="../assets/illustrations/illo-08.jpg" alt="Illustration of a girl in a yellow panda sweater and sunglasses"></div>
+            <p class="illo-caption">Panda Sweater</p>
+        </figure>
+
+        <figure class="illo-frame reveal">
+            <div class="illo-item"><img src="../assets/illustrations/illo-05.jpg" alt="Illustration of a guinea pig peeking through a heart-shaped cutout, captioned Grandma's House"></div>
+            <p class="illo-caption">Grandma's House</p>
+        </figure>
+
+        <figure class="illo-frame reveal">
+            <div class="illo-item"><img src="../assets/illustrations/illo-03.jpg" alt="Pink and blue Lunar New Year illustration with lanterns, dumplings, and a snake motif"></div>
+            <p class="illo-caption">Lunar New Year</p>
+        </figure>
+
+        <figure class="illo-frame reveal">
+            <div class="illo-item"><img src="../assets/illustrations/illo-07.jpg" alt="Illustration of a girl sitting in a chair surrounded by houseplants at night"></div>
+            <p class="illo-caption">After Hours</p>
+        </figure>
+
+        <figure class="illo-frame reveal">
+            <div class="illo-item"><img src="../assets/illustrations/illo-04.jpg" alt="Illustration of two ragdoll cats with ginkgo leaves and Japanese text reading not too sweet"></div>
+            <p class="illo-caption">Not Too Sweet</p>
+        </figure>
+
+    </div>
+</div>
+
+<!-- -- FOOTER NAV --------------------------------------- -->
+<div class="case-nav">
+    <a href="../index.html" class="case-nav-btn">&larr; Back to home</a>
+    <span class="case-nav-center">01 / 01</span>
+    <a href="../index.html" class="case-nav-btn">Back to Home &rarr;</a>
+</div>
+
+</div>
+
+<script src="../case-study.js"></script>
+</body>
+</html>

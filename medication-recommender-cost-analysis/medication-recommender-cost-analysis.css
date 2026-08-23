@@ -1,0 +1,28 @@
+/* ── PRODUCT SCREENSHOTS ────────────────────── */
+.demo-wrap {
+    border-radius: 16px;
+    overflow: hidden;
+    border: var(--border);
+    box-shadow: 0 24px 64px rgba(99,103,255,.13);
+}
+.demo-wrap img {
+    width: 100%;
+    display: block;
+    cursor: zoom-in;
+    transition: transform .3s cubic-bezier(.16,1,.3,1);
+}
+.demo-wrap img:hover {
+    transform: scale(1.015);
+}
+.demo-caption {
+    font-family: var(--ff-mono);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-body);
+    margin-top: 12px;
+    text-align: center;
+}
+.demo-caption strong {
+    font-weight: 700;
+    color: var(--ink);
+}
