@@ -166,8 +166,26 @@ document.getElementById('page-scroll').scrollTop = 0;
         if (returnFocus) dropTrigger.focus();
     }
 
-    dropWrap.addEventListener('mouseenter', () => openDrop());
-    dropWrap.addEventListener('mouseleave', () => closeDrop(false));
+    /* Touch devices synthesize a mouseenter right before the click when
+       tapped, which would open it and then have the click below
+       immediately toggle it shut again. Only wire up real hover on
+       devices that actually have it. */
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        dropWrap.addEventListener('mouseenter', () => openDrop());
+        dropWrap.addEventListener('mouseleave', () => closeDrop(false));
+    }
+
+    /* Hover doesn't exist on touch, so the trigger also needs a
+       tap-to-toggle, plus tapping anywhere else closes it. */
+    dropTrigger.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (dropWrap.classList.contains('open')) closeDrop(false);
+        else openDrop();
+    });
+    document.addEventListener('click', e => {
+        if (dropWrap.classList.contains('open') && !dropWrap.contains(e.target)) closeDrop(false);
+    });
 
     /* Keyboard: Escape closes, arrows navigate */
     document.addEventListener('keydown', e => {

@@ -4,6 +4,7 @@ document.getElementById('page-scroll').scrollTop = 0;
 (function () {
     var PASS = 'ireneportfolio', KEY = 'portfolio_auth';
     var gate = document.getElementById('pw-gate');
+    if (!gate) return;
     if (sessionStorage.getItem(KEY) === '1') { gate.remove(); return; }
     document.getElementById('pw-form').addEventListener('submit', function (e) {
         e.preventDefault();
@@ -125,8 +126,26 @@ document.getElementById('page-scroll').scrollTop = 0;
     }
 
     if (workDrop) {
-        workDrop.addEventListener('mouseenter', () => openDrop());
-        workDrop.addEventListener('mouseleave', () => closeDrop());
+        /* Touch devices synthesize a mouseenter right before the click
+           when tapped, which would open it and then have the click
+           below immediately toggle it shut again. Only wire up real
+           hover on devices that actually have it. */
+        if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+            workDrop.addEventListener('mouseenter', () => openDrop());
+            workDrop.addEventListener('mouseleave', () => closeDrop());
+        }
+
+        /* Hover doesn't exist on touch, so the trigger also needs a
+           tap-to-toggle, plus tapping anywhere else closes it. */
+        workTrigger.addEventListener('click', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (workDrop.classList.contains('open')) closeDrop();
+            else openDrop();
+        });
+        document.addEventListener('click', e => {
+            if (workDrop.classList.contains('open') && !workDrop.contains(e.target)) closeDrop();
+        });
     }
 
     document.addEventListener('keydown', e => {
