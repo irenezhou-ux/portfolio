@@ -87,6 +87,8 @@
             min-width: 120px;
         }
         .impact-text {
+            flex: 1;
+            min-width: 0;
             font-size: 16px; font-weight: 300;
             line-height: 1.7; opacity: .8;
             padding-top: 6px;
@@ -95,8 +97,9 @@
         /* ── MOBILE ───────────────────────────────── */
         @media (max-width: 860px) {
             .stats-row { grid-template-columns: 1fr; }
-            .component-grid { grid-template-columns: 1fr 1fr; }
+            .component-grid { grid-template-columns: 1fr; }
             .impact-num { min-width: 80px; font-size: 28px; }
+            .impact-item { gap: 16px; padding: 24px; }
         }
     
 /* ── STORYBOOK (MUI-style) ───────────────────────────── */

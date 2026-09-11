@@ -503,5 +503,6 @@
             .about-meta-row { flex-direction: column; }
             .about-stats { width: 100%; grid-template-columns: repeat(2,1fr); }
             .exp-item { grid-template-columns: 1fr; padding: 28px 72px; gap: 8px; }
+            .projects-grid { grid-template-columns: 1fr; }
         }
     

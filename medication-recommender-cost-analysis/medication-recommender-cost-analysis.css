@@ -15,9 +15,10 @@
     transform: scale(1.015);
 }
 .demo-caption {
-    font-family: var(--ff-mono);
-    font-style: italic;
-    font-size: 14px;
+    font-family: var(--ff-sans);
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.6;
     color: var(--ink-body);
     margin-top: 12px;
     text-align: center;
