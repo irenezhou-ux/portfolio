@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', function () {
+/* Loaded by protect.js after the page is unlocked, when DOMContentLoaded has already fired. */
+function initStorybook() {
     document.querySelectorAll('.storybook-block').forEach(function (block) {
         var items  = block.querySelectorAll('.sb-item');
         var panels = block.querySelectorAll('.sb-panel');
@@ -11,4 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     });
-});
+}
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initStorybook);
+else initStorybook();

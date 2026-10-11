@@ -1,1 +1,4 @@
 .DS_Store
+
+# Readable sources of the password-protected case studies (see tools/protect.py)
+_private/

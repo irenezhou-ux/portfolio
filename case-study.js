@@ -2,28 +2,6 @@ history.scrollRestoration = 'manual';
 document.getElementById('page-scroll').scrollTop = 0;
 
 (function () {
-    var PASS = 'ireneportfolio', KEY = 'portfolio_auth';
-    var gate = document.getElementById('pw-gate');
-    if (!gate) return;
-    if (sessionStorage.getItem(KEY) === '1') { gate.remove(); return; }
-    document.getElementById('pw-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        var inp = document.getElementById('pw-input');
-        if (inp.value === PASS) {
-            sessionStorage.setItem(KEY, '1');
-            gate.classList.add('pw-fade');
-            setTimeout(function () { gate.remove(); }, 400);
-        } else {
-            document.getElementById('pw-error').textContent = 'Incorrect password  try again.';
-            inp.classList.remove('pw-shake');
-            void inp.offsetWidth;
-            inp.classList.add('pw-shake');
-            inp.select();
-        }
-    });
-})();
-
-(function () {
 
     /* ── Custom cursor ─────────────────────────────────── */
     const dot  = document.querySelector('.cursor-dot');

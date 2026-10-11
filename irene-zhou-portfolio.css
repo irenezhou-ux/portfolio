@@ -239,6 +239,7 @@
             color: var(--ink-body);
         }
         .about-body p + p { margin-top: 20px; }
+        .about-body strong { font-weight: 700; color: var(--ink); }
 
         .about-photo {
             width: 50%;
@@ -468,6 +469,20 @@
             font-weight: 300;
             line-height: 1.55;
             opacity: .7;
+        }
+        .project-card-lock {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--ff-sans);
+            font-size: 12px;
+            font-weight: 500;
+            opacity: .5;
+        }
+        .project-card-lock svg {
+            width: 12px;
+            height: 12px;
+            flex-shrink: 0;
         }
 
         /* ─── CONTACT / FOOTER ─────────────────────────── */

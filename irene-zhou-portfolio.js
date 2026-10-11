@@ -1,5 +1,13 @@
 history.scrollRestoration = 'manual';
-document.getElementById('page-scroll').scrollTop = 0;
+/* Links like ../index.html#contact land on that section; anything else starts at the top.
+   Scroll again on load, once images above the section have their real height. */
+const hashTarget = location.hash && document.getElementById(location.hash.slice(1));
+if (hashTarget) {
+    hashTarget.scrollIntoView();
+    window.addEventListener('load', () => hashTarget.scrollIntoView());
+} else {
+    document.getElementById('page-scroll').scrollTop = 0;
+}
 (function () {
 
     /* ── Custom cursor ─────────────────────────────────── */
