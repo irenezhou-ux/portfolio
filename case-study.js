@@ -255,6 +255,9 @@ document.getElementById('page-scroll').scrollTop = 0;
             <div class="img-zoom-caption">
                 <p class="img-zoom-title"></p>
                 <p class="img-zoom-desc"></p>
+                <p class="img-zoom-hint">${matchMedia('(hover: none)').matches
+                    ? 'Tap the image to zoom in'
+                    : 'Click or scroll to zoom · Drag to move around'}</p>
             </div>
         </div>
         <div class="img-zoom-controls">
@@ -279,11 +282,33 @@ document.getElementById('page-scroll').scrollTop = 0;
     let zoom = 1, panX = 0, panY = 0, dragging = false, dragMoved = false, justDragged = false, dragStartX = 0, dragStartY = 0;
     const MIN_ZOOM = 1, MAX_ZOOM = 4;
 
+    /* Zoom resizes the image instead of scaling it with a transform, so the
+       browser redraws it sharply from the full-resolution source at every
+       zoom level rather than stretching a snapshot of the fitted size. */
+    let baseW = 0;
     function applyTransform() {
-        imgEl.style.transform = `translate(${panX}px, ${panY}px) scale(${zoom})`;
+        if (zoom === MIN_ZOOM) {
+            imgEl.style.width = imgEl.style.maxWidth = imgEl.style.maxHeight = '';
+            frameEl.style.height = '';
+        } else {
+            imgEl.style.width = `${baseW * zoom}px`;
+            imgEl.style.maxWidth = imgEl.style.maxHeight = 'none';
+        }
+        imgEl.style.transform = `translate(${panX}px, ${panY}px)`;
+    }
+    /* Large images (like the journey map) can zoom past 4x, up to their full resolution. */
+    function maxZoom() {
+        return Math.max(MAX_ZOOM, imgEl.naturalWidth / (baseW || imgEl.naturalWidth));
     }
     function setZoom(z) {
-        zoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, z));
+        if (zoom === MIN_ZOOM && z > MIN_ZOOM) {
+            /* Measure the fitted size before leaving it, and hold the frame
+               at that height so the enlarged image doesn't push it taller. */
+            baseW = imgEl.getBoundingClientRect().width;
+            if (!baseW) return;
+            frameEl.style.height = `${frameEl.getBoundingClientRect().height}px`;
+        }
+        zoom = Math.min(maxZoom(), Math.max(MIN_ZOOM, z));
         if (zoom === MIN_ZOOM) { panX = 0; panY = 0; imgEl.classList.remove('zoomed'); }
         else { imgEl.classList.add('zoomed'); }
         applyTransform();
@@ -298,6 +323,8 @@ document.getElementById('page-scroll').scrollTop = 0;
         const { title, desc } = findCaption(target.parentElement);
         imgEl.src = target.src;
         imgEl.alt = target.alt || '';
+        /* data-zoom="wide" lets detailed diagrams use the full screen width */
+        modal.classList.toggle('img-zoom-wide', target.dataset.zoom === 'wide');
         titleEl.textContent = title;
         titleEl.style.display = title ? '' : 'none';
         descEl.textContent = desc;

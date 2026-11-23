@@ -210,6 +210,37 @@
         .marquee-item img {
             width: 100%; height: 100%; object-fit: cover;
         }
+        .marquee-item { position: relative; display: block; }
+        .marquee-caption {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column;
+            justify-content: space-between; gap: 8px;
+            padding: 12px 14px;
+            background: rgba(99,103,255,.94);
+            color: var(--bg);
+            opacity: 0;
+            transition: opacity .25s ease;
+        }
+        .marquee-item:hover .marquee-caption,
+        .marquee-item:focus-visible .marquee-caption {
+            opacity: 1;
+        }
+        .marquee-caption-text {
+            font-family: var(--ff-sans);
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+        .marquee-caption-link {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-family: var(--ff-mono);
+            font-style: italic;
+            font-size: 13px;
+        }
+        /* Keep a keyboard-focused picture still long enough to read its caption */
+        .marquee-section:has(.marquee-item:focus-visible) .marquee-track {
+            animation-play-state: paused !important;
+        }
 
         /* ─── ABOUT ────────────────────────────────────── */
         #about {

@@ -2,10 +2,29 @@
    The page ships only ciphertext; the password derives the keys
    (PBKDF2-SHA256), the HMAC confirms the password was right, and
    AES-CBC decrypts the markup, which is then inserted after the gate.
-   The derived keys are kept for the browser session so the other
-   protected case studies open without asking again. */
+   The derived keys are remembered in localStorage for 30 days, so the
+   protected case studies open without asking again, across tabs and
+   browser restarts. A rebuild picks a new salt, which retires them. */
 (function () {
     var KEY = 'portfolio_key';
+    var REMEMBER_MS = 30 * 24 * 60 * 60 * 1000;
+
+    function saveKeys(hex) {
+        try {
+            localStorage.setItem(KEY, JSON.stringify({ keys: hex, expires: Date.now() + REMEMBER_MS }));
+        } catch (_) {}
+    }
+    function loadKeys() {
+        try {
+            var saved = JSON.parse(localStorage.getItem(KEY));
+            if (saved && saved.keys && saved.expires > Date.now()) return saved.keys;
+        } catch (_) {}
+        forgetKeys();
+        return null;
+    }
+    function forgetKeys() {
+        try { localStorage.removeItem(KEY); } catch (_) {}
+    }
     var payload = JSON.parse(document.getElementById('protected-payload').textContent);
     var gate   = document.getElementById('pw-gate');
     var form   = document.getElementById('pw-form');
@@ -78,7 +97,7 @@
             var keys = await deriveKeys(input.value);
             var html = await decrypt(keys);
             if (html === null) { fail('Incorrect password — try again.'); return; }
-            try { sessionStorage.setItem(KEY, toHex(keys)); } catch (_) {}
+            saveKeys(toHex(keys));
             reveal(html, true);
         } catch (_) {
             fail('This browser couldn’t unlock the page. Try another browser.');
@@ -87,16 +106,15 @@
         }
     });
 
-    /* Already unlocked earlier this session: open without showing the gate. */
-    var saved = null;
-    try { saved = sessionStorage.getItem(KEY); } catch (_) {}
+    /* Unlocked within the last 30 days: open without showing the gate. */
+    var saved = loadKeys();
     if (saved) {
         gate.classList.add('pw-checking');
         decrypt(fromHex(saved))
             .catch(function () { return null; })
             .then(function (html) {
-                if (html !== null) reveal(html, false);
-                else gate.classList.remove('pw-checking');
+                if (html !== null) { saveKeys(saved); reveal(html, false); }
+                else { forgetKeys(); gate.classList.remove('pw-checking'); }
             });
     }
 })();

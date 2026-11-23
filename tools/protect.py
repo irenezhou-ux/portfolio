@@ -79,7 +79,7 @@ def build(slug, salt, enc_key, mac_key):
         before
         + '<script id="protected-payload" type="application/json">'
         + json.dumps(payload)
-        + '</script>\n<script src="../protect.js"></script>\n</body>\n</html>\n'
+        + '</script>\n<script src="../protect.js?v=2"></script>\n</body>\n</html>\n'
     )
     with open(os.path.join(ROOT, slug, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(page)
